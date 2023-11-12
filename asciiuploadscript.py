@@ -125,13 +125,32 @@ def upload_spectrum(spec, observers, reducers, group_ids=[], date=None,
 
     
     meta_str = '\n'.join([f"# {key}: {value}" for key, value in spec.meta.items()])
+    with open(f'./{filename_}', 'w') as f:
+        for key, value in spec.meta.items():
+            f.write(f"# {key}: {value}\n")
+        ascii.write(spec, f, format='no_header', overwrite=True)
 
+    with open(f'./{filename_}', 'w') as f:
+        # Write each metadata item line by line
+        for key, value in spec.meta.items():
+            if isinstance(value, dict):
+                # If the value is a dictionary, iterate through its key-value pairs
+                for subkey, subvalue in value.items():
+                    f.write(f"# {key} {subkey}: {subvalue}\n")
+            else:
+                # Write the key-value pair directly
+                f.write(f"# {key}: {value}\n")
+        ascii.write(usespec, f'./{filename_}', format='no_header', overwrite=True)
+    
+    
+    '''    
     with open(f'./{filename_}', 'w') as f:
         # Write the metadata
         f.write(meta_str + '\n')
         # Write the table data
         ascii.write(spec, f, format='no_header', overwrite=True)
         #ascii.write(usespec, f'./{filename_}', format='no_header', overwrite=True)
+    '''
 
     print(ztfid, type(ztfid))
     print(filename_, type(filename_))
