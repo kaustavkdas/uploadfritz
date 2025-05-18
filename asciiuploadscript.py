@@ -10,7 +10,7 @@ from astropy.time import Time
 import json
 
 # Copy the API token from your Fritz account
-token = '8fea7814-af0d-42e8-ae9e-deff36e86bc4'
+token = '...'
 
 spec_files = glob.glob('*.spec')
 for file in spec_files:
